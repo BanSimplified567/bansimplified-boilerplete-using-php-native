@@ -1,20 +1,53 @@
+
 <?php
-// public/index.php
-session_start();
+
+// ==========================================
+// SESSION CONFIGURATION
+// ==========================================
+
+$isProduction = true;
+
+ini_set('display_errors', $isProduction ? '0' : '1');
+ini_set('log_errors', '1');
+
 error_reporting(E_ALL);
-ini_set('display_errors', 1);
 
-// Load config
-require_once '../config/load_env.php';
-require_once '../config/app.php';
-require_once '../config/dbconn.php';
-
-if (file_exists(__DIR__ . '/../vendor/autoload.php')) {
-  require_once __DIR__ . '/../vendor/autoload.php';
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
 }
 
-// Get action
+// ==========================================
+// PROJECT PATHS
+// ==========================================
+
+define('ROOT_PATH', dirname(__DIR__));
+define('APP_PATH', ROOT_PATH . '/app');
+define('CONFIG_PATH', ROOT_PATH . '/config');
+define('PUBLIC_PATH', __DIR__);
+
+// ==========================================
+// LOAD ENVIRONMENT AND CONFIGURATION
+// ==========================================
+
+require_once CONFIG_PATH . '/load_env.php';
+
+$autoload = ROOT_PATH . '/vendor/autoload.php';
+
+if (file_exists($autoload)) {
+    require_once $autoload;
+}
+
+require_once CONFIG_PATH . '/app.php';
+require_once CONFIG_PATH . '/dbconn.php';
+
+// ==========================================
+// GET CURRENT ACTION
+// ==========================================
+
 $action = $_GET['action'] ?? '';
+
+// Continue with your existing routing code below.
+
 
 // Get current user role
 $role = $_SESSION['role'] ?? null;

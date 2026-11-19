@@ -16,8 +16,6 @@
 
 
 -- Dumping database structure for phpframecore
-CREATE DATABASE IF NOT EXISTS `phpframecore` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `phpframecore`;
 
 -- Dumping structure for table phpframecore.notifications
 CREATE TABLE IF NOT EXISTS `notifications` (
@@ -31,13 +29,15 @@ CREATE TABLE IF NOT EXISTS `notifications` (
   KEY `idx_type` (`type`),
   KEY `idx_is_read` (`is_read`),
   KEY `idx_created_at` (`created_at`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table phpframecore.notifications: ~2 rows (approximately)
+-- Dumping data for table phpframecore.notifications: ~4 rows (approximately)
 DELETE FROM `notifications`;
 INSERT INTO `notifications` (`id`, `title`, `message`, `type`, `is_read`, `created_at`) VALUES
 	(1, 'New Registration', 'New staff registration pending review: kaizen Bringcola', 'system', 0, '2026-11-09 08:40:46'),
-	(2, 'New Registration', 'New staff registration pending review: kaizen Bringcola', 'system', 0, '2026-11-09 08:51:46');
+	(2, 'New Registration', 'New staff registration pending review: kaizen Bringcola', 'system', 0, '2026-11-09 08:51:46'),
+	(3, 'New Registration', 'New staff registration pending review: kaizen Bringcola', 'system', 0, '2026-11-09 10:32:39'),
+	(4, 'New Registration', 'New staff registration pending review: kaizen Bringcola', 'system', 0, '2026-11-09 10:38:10');
 
 -- Dumping structure for table phpframecore.secret_questions
 CREATE TABLE IF NOT EXISTS `secret_questions` (
@@ -47,7 +47,7 @@ CREATE TABLE IF NOT EXISTS `secret_questions` (
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `idx_is_active` (`is_active`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Dumping data for table phpframecore.secret_questions: ~5 rows (approximately)
 DELETE FROM `secret_questions`;
@@ -67,7 +67,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `first_name` varchar(100) NOT NULL,
   `last_name` varchar(100) NOT NULL,
   `phone` varchar(30) DEFAULT NULL,
-  `role` enum('admin','staff','cashier') NOT NULL DEFAULT 'staff',
+  `role` enum('admin','staff','user') NOT NULL DEFAULT 'staff',
   `is_active` tinyint(1) NOT NULL DEFAULT '1',
   `failed_attempts` int unsigned NOT NULL DEFAULT '0',
   `locked_until` datetime DEFAULT NULL,
@@ -84,13 +84,15 @@ CREATE TABLE IF NOT EXISTS `users` (
   KEY `idx_email` (`email`),
   KEY `idx_role` (`role`),
   KEY `idx_is_active` (`is_active`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table phpframecore.users: ~2 rows (approximately)
+-- Dumping data for table phpframecore.users: ~4 rows (approximately)
 DELETE FROM `users`;
 INSERT INTO `users` (`id`, `username`, `email`, `password`, `first_name`, `last_name`, `phone`, `role`, `is_active`, `failed_attempts`, `locked_until`, `secret_question_setup`, `reset_token`, `reset_expires`, `last_login`, `last_logout`, `created_at`, `updated_at`) VALUES
 	(1, 'kaizen@gmail.com', 'kaizen@gmail.com', '$2y$12$Z9n5zG2lMBjwihAZCuGIB.wk/Nxk5dMu5MAcp7OoLCy7PePLgxeDK', 'kaizen', 'Bringcola', '09876543211', 'admin', 1, 0, NULL, 1, NULL, NULL, '2026-11-09 08:40:58', '2026-11-09 08:50:32', '2026-11-09 08:40:46', '2026-11-09 08:50:32'),
-	(2, 'staff@gmail.com', 'staff@gmail.com', '$2y$12$Ol/fxXabk8ktYAciDhvYkuvqnZd2EaPOdTAYRDjqkxm2rvXBSL1iK', 'kaizen', 'Bringcola', '09876543211', 'staff', 1, 0, NULL, 1, NULL, NULL, '2026-11-09 08:51:57', '2026-11-09 08:57:07', '2026-11-09 08:51:46', '2026-11-09 08:57:07');
+	(2, 'staff@gmail.com', 'staff@gmail.com', '$2y$12$Ol/fxXabk8ktYAciDhvYkuvqnZd2EaPOdTAYRDjqkxm2rvXBSL1iK', 'kaizen', 'Bringcola', '09876543211', 'staff', 1, 0, NULL, 1, NULL, NULL, '2026-11-09 08:51:57', '2026-11-09 08:57:07', '2026-11-09 08:51:46', '2026-11-09 08:57:07'),
+	(3, 'bansimplified567@gmail.com', 'bansimplified567@gmail.com', '$2y$12$T31TWWD/hOICCM3iKrqjfe8ZiQ7d7jnD/r8UhMjD122/dkSI9vkpO', 'kaizen', 'Bringcola', '09123456789', 'admin', 1, 0, NULL, 1, NULL, NULL, '2026-11-09 10:33:42', '2026-11-09 10:33:44', '2026-11-09 10:32:39', '2026-11-09 10:34:50'),
+	(4, 'ivanjade567@gmail.com', 'ivanjade567@gmail.com', '$2y$12$/NYZrDJPbnMSVayEVG0RveYpBMz1g6PtkIdsFAtjK4rqStZiNHq0q', 'kaizen', 'Bringcola', '09876543211', 'staff', 1, 0, NULL, 1, NULL, NULL, '2026-11-09 10:50:48', '2026-11-09 10:50:52', '2026-11-09 10:38:10', '2026-11-09 10:50:52');
 
 -- Dumping structure for table phpframecore.user_secret_questions
 CREATE TABLE IF NOT EXISTS `user_secret_questions` (
@@ -105,9 +107,9 @@ CREATE TABLE IF NOT EXISTS `user_secret_questions` (
   KEY `idx_question_id` (`question_id`),
   CONSTRAINT `fk_usq_question` FOREIGN KEY (`question_id`) REFERENCES `secret_questions` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
   CONSTRAINT `fk_usq_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table phpframecore.user_secret_questions: ~10 rows (approximately)
+-- Dumping data for table phpframecore.user_secret_questions: ~20 rows (approximately)
 DELETE FROM `user_secret_questions`;
 INSERT INTO `user_secret_questions` (`id`, `user_id`, `question_id`, `answer`, `created_at`) VALUES
 	(1, 1, 1, 'a1', '2026-11-09 08:40:46'),
@@ -119,7 +121,17 @@ INSERT INTO `user_secret_questions` (`id`, `user_id`, `question_id`, `answer`, `
 	(7, 2, 2, 'a7', '2026-11-09 08:51:46'),
 	(8, 2, 3, 'a8', '2026-11-09 08:51:46'),
 	(9, 2, 4, 'a9', '2026-11-09 08:51:46'),
-	(10, 2, 5, 'a10', '2026-11-09 08:51:46');
+	(10, 2, 5, 'a10', '2026-11-09 08:51:46'),
+	(11, 3, 1, 'a11', '2026-11-09 10:32:39'),
+	(12, 3, 2, 'a12', '2026-11-09 10:32:39'),
+	(13, 3, 3, 'a13', '2026-11-09 10:32:39'),
+	(14, 3, 4, 'a14', '2026-11-09 10:32:39'),
+	(15, 3, 5, 'a15', '2026-11-09 10:32:39'),
+	(16, 4, 1, 'a16', '2026-11-09 10:38:10'),
+	(17, 4, 2, 'a17', '2026-11-09 10:38:10'),
+	(18, 4, 3, 'a18', '2026-11-09 10:38:10'),
+	(19, 4, 4, 'a19', '2026-11-09 10:38:10'),
+	(20, 4, 5, 'a20', '2026-11-09 10:38:10');
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
